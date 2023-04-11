@@ -1,34 +1,86 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Outlet } from "react-router-dom";
+import { Theme, ThemeProvider, Global } from "@emotion/react";
+import { useCallback, useState } from "react";
+
+import styled from "@emotion/styled";
+import { colorsCommon, topLevelPadding } from "./styles/common";
+
+const darkTheme = {
+  colors: {
+    elements: 'hsl(209, 23%, 22%)',
+    background: 'hsl(207, 26%, 17%)',
+    text: 'hsl(0, 0%, 100%)',
+    input: 'hsl(209, 23%, 22%)',
+    shadow: 'hsl(0, 0%, 50%)',
+    header: '#2b3743',
+  },
+  breakpoints: {
+    mobile: '500px',
+  }
+} as Theme;
+
+const lightTheme = {
+  colors: {
+    elements: 'hsl(0, 0%, 100%)',
+    background: 'hsl(0, 0%, 98%)',
+    text: 'hsl(200, 15%, 8%)',
+    input: 'hsl(0, 0%, 52%)',
+    shadow: 'hsl(0, 0%, 50%)',
+    header: '#fff',
+  },
+  breakpoints: {
+    mobile: '500px',
+  }
+} as Theme;
+
+const Header = styled.header(props => [
+  topLevelPadding,
+  colorsCommon,
+  {
+    boxShadow: `0 0 var(--shadow-size) ${props.theme.colors.shadow}`,
+    display: 'flex',
+    justifyContent: 'space-between',
+    backgroundColor: props.theme.colors.header,
+  }
+]);
+
+const Main = styled.main(props => [
+  topLevelPadding,
+]);
+
+const DarkModeSwitch = styled.button(props => ({
+  border: 'none',
+  background: 'transparent',
+  cursor: 'pointer',
+  color: props.theme.colors.text,
+}))
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [darkMode, setDarkMode] = useState(false);
+
+  const handleDarkMode = useCallback(() => {
+    setDarkMode(mode => !mode);
+  }, []);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      <Global styles={{
+        body: {
+          color: darkMode ? darkTheme.colors.text : lightTheme.colors.text,
+          backgroundColor: darkMode ? darkTheme.colors.background : lightTheme.colors.background,
+        },
+      }} />
+      <Header>
+        <h1>Where in the&nbsp;world?</h1>
+        <DarkModeSwitch onClick={handleDarkMode}>
+          {darkMode ? <i className="fa-regular fa-moon"></i> : <i className="fa-solid fa-moon"></i>}&nbsp;
+          Dark&nbsp;Mode
+        </DarkModeSwitch>
+      </Header>
+      <Main className="App">
+        <Outlet />
+      </Main>
+    </ThemeProvider>
   )
 }
 
