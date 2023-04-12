@@ -15,9 +15,12 @@ export const gridLayout = css({
 });
 
 export const inputCommon = ({theme} : {theme: Theme}) => css(({
-  border: 'none',
+  border: '1px solid transparent',
   borderRadius: '0.5rem',
   boxShadow: `0 0 var(--shadow-size) ${theme.colors.shadow}`,
+  '&:focus-within': {
+    border: `1px solid ${theme.colors.text}`,
+  }
 }));
 
 export const colorsCommon = ({theme} : {theme: Theme}) => css({

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter, defer } from 'react-router-dom'
 import axios from 'axios'
 import App from './App'
-import CountryList from "./pages/CountryList";
+import CountryList, { CountryEntry } from "./pages/CountryList";
 import './index.css'
 
 const router = createBrowserRouter([
@@ -15,9 +15,15 @@ const router = createBrowserRouter([
         index: true,
         element: <CountryList />,
         loader: async () => {
-          const data = await axios.get("https://restcountries.com/v3.1/all?fields=name,capital,flags,population,region");
-          return defer({data: data.data});
-        }
+          const otherPromise = new Promise((resolve, reject) => {
+            const data = axios.get<CountryEntry[]>("https://restcountries.com/v3.1/all?fields=name,capital,flags,population,region");
+            data.then((val) => setTimeout(() => {
+              resolve(val);
+            }, 1000));
+          });
+          return defer({response: otherPromise});
+        },
+        shouldRevalidate: () => false,
       }
     ]
   }

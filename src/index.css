@@ -24,6 +24,7 @@
 
 body {
   --shadow-size: 2em;
+  --element-size: 20em;
 
   font-size: 14px;
   font-family: 'Nunito Sans', sans-serif;
