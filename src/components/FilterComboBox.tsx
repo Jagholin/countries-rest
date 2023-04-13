@@ -4,24 +4,27 @@ import { css } from '@emotion/react';
 import { inputCommon } from '../styles/common';
 
 const Container = styled.div(props => [
-  inputCommon,
+  inputCommon(props),
   {
     position: 'relative',
-    display: 'inline-block',
+    display: 'flex',
+    alignItems: 'center',
     border: '1px solid transparent',
-    width: '100%',
-    height: '100%',
+    // height: '100%',
     '&:focus-within': {
       border: `1px solid ${props.theme.colors.text}`,
     }
 }]);
 
-const Input = styled.input({
+const Input = styled.input(props => ({
   border: 'none',
+  backgroundColor: 'transparent',
+  color: props.theme.colors.text,
   outline: 'none',
   width: '100%',
   height: '100%',
-});
+  flexGrow: 1,
+}));
 
 const Listbox = styled.ul(props => [
   {
@@ -45,7 +48,7 @@ const optionFocused = css({
 
 type Props = {
   label: string;
-  options: string[];
+  options: readonly string[];
   value: string;
   setValue: (value: string) => void;
 }
@@ -82,7 +85,10 @@ function ComboBoxOption({label, setOptionId, setOptionCurrent, visuallyFocused, 
 
   return (
     <li role="option"
-      css={visuallyFocused ? optionFocused : undefined}
+      css={[visuallyFocused ? optionFocused : undefined, {
+        padding: '0.5rem',
+        cursor: 'pointer',
+      }]}
       id={optionId}
       onClick={handleOptionClick}
       onPointerOver={handleOptionPointerOver}
@@ -200,7 +206,7 @@ function FilterComboBox({label, options, value, setValue}: Props) {
       if (expanded) {
         expand(false);
       }
-    }, 100);
+    }, 500);
   }
 
   const handleClick = (e: React.MouseEvent) => {
@@ -214,6 +220,10 @@ function FilterComboBox({label, options, value, setValue}: Props) {
     console.log('handleOptionSelected', optionIndex);
     setValue(options[optionIndex]);
     expand(false);
+  }
+
+  const handleChevronClick = (e: React.MouseEvent) => {
+    expand(!expanded);
   }
 
   /* useEffect(() => {
@@ -239,6 +249,8 @@ function FilterComboBox({label, options, value, setValue}: Props) {
         value={value}
         aria-autocomplete='none'
         readOnly />
+      <i className="fa-solid fa-times" css={value ? {cursor: 'pointer'} : {opacity: 0}} onClick={() => setValue('')} aria-label="clear filter"></i>
+      <i className={`fa-solid fa-chevron-down ${expanded ? 'fa-rotate-180' : ''}`} onClick={handleChevronClick} css={{cursor: 'pointer', marginLeft: '0.5rem'}} aria-label=""></i>
       <Listbox role="listbox" id={popupId} css={!expanded ? {display: 'none'} : ''} >
         {options.map((option, index) => (
           <ComboBoxOption 

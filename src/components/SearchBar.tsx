@@ -16,10 +16,7 @@ function SearchBar({labelText, value, setValue, ...props}: Props) {
       {
         display: 'flex',
         gap: '1rem',
-        padding: '0.5rem 1rem',
         alignItems: 'center',
-        cursor: 'text',
-        background: theme.colors.elements,
       }
     ])}
     {...props} >
