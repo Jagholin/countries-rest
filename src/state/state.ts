@@ -11,6 +11,12 @@ export type CountryEntry = {
   name: {
     common: string;
     official: string;
+    nativeName: {
+      [key: string]: {
+        official: string;
+        common: string;
+      }
+    }
   },
   capital: string[];
   region: typeof REGIONS[number];

@@ -21,19 +21,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <CountryList />,
-        loader: async () => {
-          const data = axios.get<CountryEntry[]>("https://restcountries.com/v3.1/all?fields=name,capital,flags,population,region,cca3,cioc,borders").then(response => {
-            return {
-              ...response,
-              data: response.data.map((country, index) => ({
-                ...country,
-                id: index,
-              })),
-            }
-          });
-          return defer({response: data});
-        },
-        shouldRevalidate: () => false,
       },
       {
         path: "country/:countryId",
