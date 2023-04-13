@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import { ConnectedProps, connect, useStore } from 'react-redux';
-import { CountryDetails, State, setDetails } from '../state/state';
+import { CountryDetails, CountryEntry, State, setDetails } from '../state/state';
 import { Await, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from '@emotion/styled';
@@ -8,7 +8,8 @@ import { breakpointMobile } from '../styles/common';
 
 const connector = connect((state: State) => {
   return {
-    countryDetails: state.details
+    countryDetails: state.details,
+    allCountries: state.countries,
   };
 });
 
@@ -43,7 +44,7 @@ const DetailsBorder = styled.div(props => ({
   }
 }));
 
-function CountryDetailsComponent({countryDetails, dispatch}: Props) {
+function CountryDetailsComponent({countryDetails, dispatch, allCountries}: Props) {
   const { countryId } = useParams();
   const navigate = useNavigate();
 
@@ -61,8 +62,8 @@ function CountryDetailsComponent({countryDetails, dispatch}: Props) {
     <div>
       <button onClick={() => navigate(-1)}>Back</button>
       <Suspense fallback={<div>Loading...</div>}>
-        <Await resolve={countryData}>
-          { (countryData: CountryDetails) => (
+        <Await resolve={Promise.all([countryData, allCountries])}>
+          { ([countryData, allCountries]: [CountryDetails, CountryEntry[]]) => (
             <DetailsGrid>
               <DetailsFlag src={countryData.flags.png} alt={countryData.flags.alt}></DetailsFlag>
               <DetailsTitle>{countryData.name.common}</DetailsTitle>
@@ -83,7 +84,7 @@ function CountryDetailsComponent({countryDetails, dispatch}: Props) {
                 <ul>
                   {countryData.borders?.map(border => (
                     <li key={border}>
-                      <button onClick={() => navigate("/country/" + border)}>{border}</button>
+                      <button onClick={() => navigate("/country/" + border)}>{allCountries.find(c => c.cca3 === border)?.name.common}</button>
                     </li>
                   ))}
                 </ul>
