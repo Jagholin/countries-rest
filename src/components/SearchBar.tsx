@@ -5,11 +5,12 @@ import { inputCommon } from '../styles/common';
 
 type Props = {
   labelText: ReactNode;
+  placeholder?: string;
   value?: string;
   setValue?: (value: string) => void;
 }
 
-function SearchBar({labelText, value, setValue, ...props}: Props) {
+function SearchBar({labelText, value, setValue, placeholder, ...props}: Props) {
   return (
     <label role='search' css={theme => css([
       inputCommon({theme}),
@@ -21,7 +22,7 @@ function SearchBar({labelText, value, setValue, ...props}: Props) {
     ])}
     {...props} >
       <div> {labelText} </div>
-      <input type="text" aria-label='Search query' autoFocus css={{
+      <input type="text" aria-label='Search query' autoFocus placeholder={placeholder} css={{
         border: 'none', 
         outline: 'none',
         flexGrow: 1,

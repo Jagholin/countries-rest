@@ -37,7 +37,7 @@ export type CountryDetails = CountryEntry & {
   languages: {
     [key: string]: string;
   };
-  borders: string[];
+  borders?: string[];
 }
 
 export type State = {

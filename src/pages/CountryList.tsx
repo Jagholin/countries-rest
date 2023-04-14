@@ -33,6 +33,7 @@ const CountriesGrid = ({countryList, ...props}: {countryList: CountryEntry[]}) =
 
   return (
     <div css={theme => [gridLayout, {
+      justifyItems: 'center',
       gap: '4rem',
     }]} {...props}>
       {countryList.map(country => (
@@ -89,8 +90,9 @@ function CountryList({countryList}: Props) {
 
   return (
     <div>
-      <div css={[flexLayout("2rem", true), {gap: "4rem"}]}>
-        <SearchBar labelText={<i className="fa-solid fa-magnifying-glass"></i>} 
+      <div css={[flexLayout("2rem", "2rem", true)]}>
+        <SearchBar labelText={<i className="fa-solid fa-magnifying-glass"></i>}
+          placeholder='Search by name' 
           css={[grow, {height: '3rem'}]}
           value={searchQuery}
           setValue={setSearchQuery}/>

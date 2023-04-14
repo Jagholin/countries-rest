@@ -14,9 +14,10 @@ export const gridLayout = css({
   gridTemplateColumns: 'repeat(auto-fill, minmax(var(--element-size), 1fr))',
 });
 
-export const flexLayout = (itemHeight?: string, wrap?: boolean) => css({
+export const flexLayout = (gap: string, itemHeight?: string, wrap?: boolean) => css({
   display: 'flex',
   flexWrap: wrap ? 'wrap' : 'nowrap',
+  gap,
   '& > *': {
     minHeight: itemHeight ? `${itemHeight}` : 'auto',
     alignSelf: 'stretch',
@@ -34,6 +35,7 @@ export const inputCommon = ({theme} : {theme: Theme}) => css(({
   padding: '0.5rem 1rem',
   cursor: 'text',
   background: theme.colors.elements,
+  color: theme.colors.text,
   '&:focus-within': {
     border: `1px solid ${theme.colors.text}`,
   }

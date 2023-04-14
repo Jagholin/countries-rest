@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { Theme, ThemeProvider, Global } from "@emotion/react";
 import { useCallback, useState } from "react";
 
@@ -71,7 +71,7 @@ function App() {
         },
       }} />
       <Header>
-        <h1>Where in the&nbsp;world?</h1>
+        <NavLink to="/"><h1>Where in the&nbsp;world?</h1></NavLink>
         <DarkModeSwitch onClick={handleDarkMode}>
           {darkMode ? <i className="fa-regular fa-moon"></i> : <i className="fa-solid fa-moon"></i>}&nbsp;
           Dark&nbsp;Mode
