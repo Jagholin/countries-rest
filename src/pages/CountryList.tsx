@@ -75,7 +75,7 @@ function CountryList({countryList}: Props) {
         return false;
       }
       if (searchQuery) {
-        const searchQueryLower = searchQuery.toLowerCase().split(' ');
+        const searchQueryLower = searchQuery.toLowerCase().split(' ').filter(sq => sq);
         if (!searchQueryLower.some(sq => country.name.common.toLowerCase().includes(sq) || country.name.official.toLowerCase().includes(sq))) {
           return false;
         }
