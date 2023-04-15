@@ -9,6 +9,7 @@ declare module '@emotion/react' {
       input: string;
       shadow: string;
       header: string;
+      focus: string;
     },
     breakpoints: {
       mobile: string;
