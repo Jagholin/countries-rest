@@ -40,7 +40,7 @@ const CountriesGrid = ({countryList, ...props}: {countryList: CountryEntry[]}) =
         // <NavLink to={`/country/${country.id}`} key={country.name.common} css={theme => ({backgroundColor: theme.colors.elements, cursor: 'pointer'})}>
         <div key={country.name.common} css={theme => ({backgroundColor: theme.colors.elements, cursor: 'pointer'})} onClick={() => navigate(`/country/${country.cca3}`)}>
           {/* FIXME: role=img due to bug: https://bugs.webkit.org/show_bug.cgi?id=216364 */}
-          <img src={country.flags.png} alt={country.flags.alt} css={{maxWidth: '100%'}} role='img' />
+          <img src={country.flags.png} alt={country.flags.alt} css={{maxWidth: '100%'}} />
           <CardContent>
             <strong css={[textBolder, textBigger]}>{country.name.common}</strong>
             <div><ValueTitle>Population:</ValueTitle> {country.population}</div>

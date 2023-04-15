@@ -249,7 +249,7 @@ function FilterComboBox({label, options, value, setValue}: Props) {
         value={value}
         aria-autocomplete='none'
         readOnly />
-      <i className="fa-solid fa-times" css={value ? {cursor: 'pointer'} : {opacity: 0}} onClick={() => setValue('')} aria-label="clear filter"></i>
+      <i className="fa-solid fa-times" css={value ? {cursor: 'pointer'} : {opacity: 0}} onClick={() => setValue('')}></i>
       <i className={`fa-solid fa-chevron-down ${expanded ? 'fa-rotate-180' : ''}`} onClick={handleChevronClick} css={{cursor: 'pointer', marginLeft: '0.5rem'}} aria-label=""></i>
       <Listbox role="listbox" id={popupId} css={!expanded ? {display: 'none'} : ''} >
         {options.map((option, index) => (
