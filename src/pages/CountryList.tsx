@@ -38,7 +38,14 @@ const CountriesGrid = ({countryList, ...props}: {countryList: CountryEntry[]}) =
     }]} {...props}>
       {countryList.map(country => (
         // <NavLink to={`/country/${country.id}`} key={country.name.common} css={theme => ({backgroundColor: theme.colors.elements, cursor: 'pointer'})}>
-        <div key={country.name.common} css={theme => ({backgroundColor: theme.colors.elements, cursor: 'pointer'})} onClick={() => navigate(`/country/${country.cca3}`)}>
+        <div key={country.name.common} css={theme => ({
+            backgroundColor: theme.colors.elements, 
+            cursor: 'pointer',
+            '&:focus': {
+              outline: '1px solid ' + theme.colors.focus,
+              outlineOffset: '2px',
+            }
+          })} tabIndex={0} onClick={() => navigate(`/country/${country.cca3}`)} onKeyDown={(e) => (e.key === 'Enter') ? navigate(`/country/${country.cca3}`) : console.log(e.key)}>
           {/* FIXME: role=img due to bug: https://bugs.webkit.org/show_bug.cgi?id=216364 */}
           <img src={country.flags.png} alt={country.flags.alt} css={{maxWidth: '100%'}} />
           <CardContent>

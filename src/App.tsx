@@ -13,6 +13,7 @@ const darkTheme = {
     input: 'hsl(209, 23%, 22%)',
     shadow: 'hsl(0, 0%, 50%)',
     header: '#2b3743',
+    focus: 'hsl(213, 71%, 68%)'
   },
   breakpoints: {
     mobile: '500px',
@@ -27,6 +28,7 @@ const lightTheme = {
     input: 'hsl(0, 0%, 52%)',
     shadow: 'hsl(0, 0%, 50%)',
     header: '#fff',
+    focus: 'hsl(212, 30%, 16%)'
   },
   breakpoints: {
     mobile: '500px',
